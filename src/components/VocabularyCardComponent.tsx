@@ -1,7 +1,16 @@
-import React, { useState } from "react";
-import { motion, useMotionValue, useTransform } from "motion/react";
-import { Volume2, Edit3, Check, Trash2, HelpCircle, Save, BookOpen, Star } from "lucide-react";
-import { VocabularyCard, COLOR_THEMES, ColorThemeName } from "../types";
+import React, { useState } from 'react';
+import { motion, useMotionValue, useTransform } from 'motion/react';
+import {
+  Volume2,
+  Edit3,
+  Check,
+  Trash2,
+  HelpCircle,
+  Save,
+  BookOpen,
+  Star,
+} from 'lucide-react';
+import { VocabularyCard, COLOR_THEMES, ColorThemeName } from '../types';
 
 interface VocabularyCardProps {
   card: VocabularyCard;
@@ -25,16 +34,21 @@ export default function VocabularyCardComponent({
   onPrev,
 }: VocabularyCardProps) {
   const [isEditingContext, setIsEditingContext] = useState(false);
-  const [editedContext, setEditedContext] = useState(card.customContext || "");
+  const [editedContext, setEditedContext] = useState(card.customContext || '');
   const [isRevealed, setIsRevealed] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
   // Drag and swipe mechanics
   const x = useMotionValue(0);
   const rotate = useTransform(x, [-150, 150], [-8, 8]);
-  const opacity = useTransform(x, [-200, -100, 0, 100, 200], [0.4, 0.9, 1, 0.9, 0.4]);
+  const opacity = useTransform(
+    x,
+    [-200, -100, 0, 100, 200],
+    [0.4, 0.9, 1, 0.9, 0.4],
+  );
 
-  const theme = COLOR_THEMES[card.colorTheme as ColorThemeName] || COLOR_THEMES.indigo;
+  const theme =
+    COLOR_THEMES[card.colorTheme as ColorThemeName] || COLOR_THEMES.indigo;
 
   const handleDragEnd = (_event: any, info: any) => {
     const swipeThreshold = 80;
@@ -55,7 +69,7 @@ export default function VocabularyCardComponent({
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(card.word);
-    utterance.lang = "en-US";
+    utterance.lang = 'en-US';
     utterance.rate = 0.85; // Slightly slower for clear educational articulation
 
     utterance.onstart = () => setIsSpeaking(true);
@@ -78,11 +92,11 @@ export default function VocabularyCardComponent({
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         onDragEnd={handleDragEnd}
-        whileDrag={{ scale: 0.98, cursor: "grabbing" }}
-        className={`w-full bg-white rounded-3xl border-2 ${theme.border} shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden flex flex-col h-full`}
+        whileDrag={{ scale: 0.98, cursor: 'grabbing' }}
+        className={`w-full bg-white rounded-3xl border-2 ${theme.border} shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden flex flex-col h-150`}
       >
         {/* Card Image Block */}
-        <div className="relative h-44 sm:h-52 w-full bg-slate-100 overflow-hidden group">
+        <div className="relative h-70 sm:h-52 w-full bg-slate-100 overflow-hidden group">
           <img
             src={card.imageUrl}
             alt={card.word}
@@ -102,18 +116,22 @@ export default function VocabularyCardComponent({
               }}
               className={`p-2.5 rounded-full backdrop-blur-md shadow-sm border transition-all duration-300 ${
                 isMemorized
-                  ? "bg-emerald-500 border-emerald-400 text-white"
-                  : "bg-black/40 border-white/20 text-white/80 hover:bg-black/60"
+                  ? 'bg-emerald-500 border-emerald-400 text-white'
+                  : 'bg-black/40 border-white/20 text-white/80 hover:bg-black/60'
               }`}
-              title={isMemorized ? "Marked as Memorized" : "Mark as Memorized"}
+              title={isMemorized ? 'Marked as Memorized' : 'Mark as Memorized'}
             >
-              <Star className={`w-4.5 h-4.5 ${isMemorized ? "fill-white" : ""}`} />
+              <Star
+                className={`w-4.5 h-4.5 ${isMemorized ? 'fill-white' : ''}`}
+              />
             </button>
             <button
               id={`btn-delete-${card.id}`}
               onClick={(e) => {
                 e.stopPropagation();
-                if (confirm(`Are you sure you want to delete "${card.word}"?`)) {
+                if (
+                  confirm(`Are you sure you want to delete "${card.word}"?`)
+                ) {
                   onDelete(card.id);
                 }
               }}
@@ -128,7 +146,7 @@ export default function VocabularyCardComponent({
           <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-white">
             <div className="space-y-0.5">
               <span className="text-xs uppercase font-semibold tracking-wider text-white/80">
-                {card.partOfSpeech || "noun"}
+                {card.partOfSpeech || 'noun'}
               </span>
               <div className="flex items-center gap-2">
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white drop-shadow-md">
@@ -138,11 +156,13 @@ export default function VocabularyCardComponent({
                   id={`btn-speak-${card.id}`}
                   onClick={handleSpeak}
                   className={`p-1.5 rounded-full bg-white/20 border border-white/10 hover:bg-white/35 text-white transition-all cursor-pointer ${
-                    isSpeaking ? "scale-110 bg-white/40" : ""
+                    isSpeaking ? 'scale-110 bg-white/40' : ''
                   }`}
                   title="Listen Pronunciation"
                 >
-                  <Volume2 className={`w-4 h-4 ${isSpeaking ? "animate-pulse" : ""}`} />
+                  <Volume2
+                    className={`w-4 h-4 ${isSpeaking ? 'animate-pulse' : ''}`}
+                  />
                 </button>
               </div>
             </div>
@@ -165,7 +185,7 @@ export default function VocabularyCardComponent({
             >
               <HelpCircle className="w-10 h-10 text-slate-400 group-hover:scale-110 transition-transform duration-300 mb-2" />
               <p className="text-sm font-medium text-slate-500 group-hover:text-slate-600 text-center">
-                Tap card to reveal definition, example, and your personal context notes.
+                Tap card to reveal definition
               </p>
             </div>
           ) : (
@@ -192,9 +212,13 @@ export default function VocabularyCardComponent({
               </div>
 
               {/* User written Context Reminder - Core Feature */}
-              <div className={`p-4 rounded-2xl border transition-colors duration-300 ${theme.bg} ${theme.border} space-y-2`}>
+              <div
+                className={`p-4 rounded-2xl border transition-colors duration-300 ${theme.bg} ${theme.border} space-y-2`}
+              >
                 <div className="flex items-center justify-between">
-                  <span className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${theme.text}`}>
+                  <span
+                    className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${theme.text}`}
+                  >
                     <BookOpen className="w-3.5 h-3.5" />
                     My Memory Trigger
                   </span>
@@ -203,7 +227,7 @@ export default function VocabularyCardComponent({
                       id={`btn-edit-context-${card.id}`}
                       onClick={() => {
                         setIsEditingContext(true);
-                        setEditedContext(card.customContext || "");
+                        setEditedContext(card.customContext || '');
                       }}
                       className="p-1 rounded-md text-slate-400 hover:text-slate-600 transition-colors"
                       title="Edit memory context"
@@ -265,8 +289,7 @@ export default function VocabularyCardComponent({
           )}
 
           {/* Bottom Swipe hint for user context */}
-          <div className="pt-4 flex items-center justify-between border-t border-slate-100 text-3xs uppercase font-medium text-slate-400 tracking-wider">
-            <span>← Swipe left / right to navigate →</span>
+          {/* <div className="pt-4 flex items-center justify-between border-t border-slate-100 text-3xs uppercase font-medium text-slate-400 tracking-wider">
             {isFlashcardMode && isRevealed && (
               <button
                 onClick={() => setIsRevealed(false)}
@@ -275,7 +298,7 @@ export default function VocabularyCardComponent({
                 Hide
               </button>
             )}
-          </div>
+          </div> */}
         </div>
       </motion.div>
     </div>

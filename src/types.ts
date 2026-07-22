@@ -8,6 +8,7 @@ export interface VocabularyCard {
   customContext?: string;
   imageUrl: string;
   colorTheme: string; // "rose" | "emerald" | "violet" | "amber" | "sky" | "indigo"
+  status?: "learning" | "mastered";
   createdAt: number;
 }
 
