@@ -1,0 +1,8 @@
+{
+  "name": "Vocabulary Reminder",
+  "description": "A light, minimalist vocabulary reminder app with an elegant mobile-first slider interface to memorize words through images and contextual examples.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
