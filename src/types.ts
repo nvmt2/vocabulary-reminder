@@ -12,6 +12,33 @@ export interface VocabularyCard {
   createdAt: number;
 }
 
+export type MealType =
+  | "breakfast"
+  | "lunch"
+  | "dinner"
+  | "snack"
+  | "dessert"
+  | "drink";
+
+export const MEAL_TYPES: MealType[] = [
+  "breakfast",
+  "lunch",
+  "dinner",
+  "snack",
+  "dessert",
+  "drink",
+];
+
+export interface FoodCard {
+  id: string;
+  name: string;
+  mealType: MealType;
+  notes?: string;
+  imageUrl: string;
+  colorTheme: string; // "rose" | "emerald" | "violet" | "amber" | "sky" | "indigo"
+  createdAt: number;
+}
+
 export type ColorThemeName = "rose" | "emerald" | "violet" | "amber" | "sky" | "indigo";
 
 export interface ColorThemeConfig {
